@@ -168,7 +168,7 @@ export default function LoginPage() {
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
             </a>
             
-            <a href={getAuthLink("https://vaila.vercel.app")} className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
+            <a href="https://vaila.vercel.app" className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
               <div className="flex items-center gap-3 text-white">
                 <CalendarCheck className="text-purple-500 w-5 h-5" />
                 <span className="font-medium">vaila</span>
