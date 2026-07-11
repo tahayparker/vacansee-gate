@@ -53,19 +53,25 @@ export default function LoginPage() {
     supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
       if (session) {
         setSession(session);
-        handleSuccess(session);
+        const modeParam = searchParams?.get("mode");
+        if (modeParam !== "reset-password") {
+          handleSuccess(session);
+        }
       }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       if (session) {
         setSession(session);
-        handleSuccess(session);
+        const modeParam = searchParams?.get("mode");
+        if (modeParam !== "reset-password") {
+          handleSuccess(session);
+        }
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [targetQuery, nextQuery]);
+  }, [targetQuery, nextQuery, searchParams]);
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
