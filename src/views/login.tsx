@@ -150,8 +150,6 @@ export default function LoginPage() {
   }
 
   // Generate URL with token passing hash if session exists
-  const targetQuery = searchParams?.get("target");
-  const nextQuery = searchParams?.get("next");
 
   const getAuthLink = (baseUrl: string, nextUrl?: string) => {
     if (!session) return baseUrl;

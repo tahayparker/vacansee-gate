@@ -21,10 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${qurovaFont.variable}`}>
-      <body className={`${montserrat.className} bg-background text-foreground min-h-screen antialiased`}>
+      <body className={`${montserrat.className} bg-background text-foreground h-screen overflow-hidden antialiased flex flex-col`}>
         <PlasmaBackground />
         <SiteHeader />
-        <main className="pt-16 pb-16 min-h-screen flex flex-col items-center w-full px-4 sm:px-8">
+        <main className="flex-1 flex flex-col items-center justify-center w-full px-4 sm:px-8 relative z-10">
           {children}
         </main>
         <SiteFooter />
