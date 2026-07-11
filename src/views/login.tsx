@@ -50,8 +50,17 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }: { data: { session: any } }) => {
       if (session) {
+        // Verify if session is actually still valid on the server
+        const { error } = await supabase.auth.getUser();
+        if (error) {
+          // Session is invalid (e.g. user signed out elsewhere)
+          await supabase.auth.signOut();
+          setSession(null);
+          return;
+        }
+        
         setSession(session);
         const modeParam = searchParams?.get("mode");
         if (modeParam !== "reset-password") {
@@ -60,8 +69,17 @@ export default function LoginPage() {
       }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event: any, session: any) => {
       if (session) {
+        // Verify if session is actually still valid on the server
+        const { error } = await supabase.auth.getUser();
+        if (error) {
+          // Session is invalid
+          await supabase.auth.signOut();
+          setSession(null);
+          return;
+        }
+
         setSession(session);
         const modeParam = searchParams?.get("mode");
         if (modeParam !== "reset-password") {
