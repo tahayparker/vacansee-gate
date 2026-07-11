@@ -27,6 +27,13 @@ export default function LoginPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [session, setSession] = useState<any>(null);
 
+  useEffect(() => {
+    const modeParam = searchParams?.get("mode");
+    if (modeParam === "login" || modeParam === "forgot-password" || modeParam === "reset-password") {
+      setMode(modeParam);
+    }
+  }, [searchParams]);
+
   const handleSuccess = (activeSession: any) => {
     if (targetQuery) {
       let baseUrl = "";
@@ -86,7 +93,7 @@ export default function LoginPage() {
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    const redirectUrl = `${window.location.origin}/auth/login?mode=reset-password`;
+    const redirectUrl = `${window.location.origin}/?mode=reset-password`;
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: redirectUrl,
