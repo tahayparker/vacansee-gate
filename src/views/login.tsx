@@ -248,6 +248,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => {
+                router.replace("/");
                 setMode("login");
                 setErrorMessage(null);
                 setSuccessMessage(null);
