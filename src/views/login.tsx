@@ -43,7 +43,7 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
       if (session) {
         setSession(session);
         handleSuccess(session);
