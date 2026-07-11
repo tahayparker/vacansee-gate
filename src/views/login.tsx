@@ -14,6 +14,8 @@ export default function LoginPage() {
   const supabase = getSupabaseBrowserClient();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const targetQuery = searchParams?.get("target");
+  const nextQuery = searchParams?.get("next");
   const [mode, setMode] = useState<AuthMode>("login");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -25,23 +27,38 @@ export default function LoginPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [session, setSession] = useState<any>(null);
 
+  const handleSuccess = (activeSession: any) => {
+    if (targetQuery) {
+      let baseUrl = "";
+      if (targetQuery === "vacansee-au") baseUrl = "https://vacansee-au.vercel.app";
+      else if (targetQuery === "vacansee") baseUrl = "https://vacansee.vercel.app";
+      
+      if (baseUrl) {
+        const link = `${baseUrl}/auth/sso#access_token=${activeSession.access_token}&refresh_token=${activeSession.refresh_token}${nextQuery ? `&next=${encodeURIComponent(nextQuery)}` : ''}`;
+        window.location.href = link;
+        return;
+      }
+    }
+    setIsSuccess(true);
+  };
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         setSession(session);
-        setIsSuccess(true);
+        handleSuccess(session);
       }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) {
         setSession(session);
-        setIsSuccess(true);
+        handleSuccess(session);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [targetQuery, nextQuery]);
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -58,7 +75,7 @@ export default function LoginPage() {
       setIsLoading(false);
     } else {
       setSession(data.session);
-      setIsSuccess(true);
+      handleSuccess(data.session);
       setIsLoading(false);
     }
   };
@@ -133,10 +150,16 @@ export default function LoginPage() {
   }
 
   // Generate URL with token passing hash if session exists
-  const getAuthLink = (baseUrl: string) => {
+  const targetQuery = searchParams?.get("target");
+  const nextQuery = searchParams?.get("next");
+
+  const getAuthLink = (baseUrl: string, nextUrl?: string) => {
     if (!session) return baseUrl;
-    // Route to our custom SSO page which explicitly handles the hash
-    return `${baseUrl}/auth/sso#access_token=${session.access_token}&refresh_token=${session.refresh_token}`;
+    let link = `${baseUrl}/auth/sso#access_token=${session.access_token}&refresh_token=${session.refresh_token}`;
+    if (nextUrl) {
+      link += `&next=${encodeURIComponent(nextUrl)}`;
+    }
+    return link;
   };
 
   if (isSuccess) {
@@ -184,10 +207,10 @@ export default function LoginPage() {
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
             </a>
 
-            <a href={getAuthLink("https://vacansee-au.vercel.app")} className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
+            <a href="https://jroth.vercel.app" className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
               <div className="flex items-center gap-3 text-white">
                 <DoorOpen className="text-purple-500 w-5 h-5" />
-                <span className="font-medium">JR</span>
+                <span className="font-medium">vacansee-jr</span>
               </div>
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
             </a>
