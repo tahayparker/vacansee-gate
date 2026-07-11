@@ -134,7 +134,7 @@ export default function LoginPage() {
     } else {
       setSuccessMessage("Password updated successfully! Redirecting...");
       setTimeout(() => {
-        router.replace("/");
+        window.location.href = "/";
       }, 1500);
     }
     setIsLoading(false);
