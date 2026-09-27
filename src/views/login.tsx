@@ -4,7 +4,7 @@ import { useState, useEffect, FormEvent } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, type Variants, AnimatePresence } from "framer-motion";
-import { AlertCircle, Eye, EyeOff, Loader2, Mail, Lock, ArrowLeft, DoorOpen, CalendarCheck, CheckCircle2, ArrowRight } from "lucide-react";
+import { AlertCircle, Eye, EyeOff, Loader2, Mail, Lock, ArrowLeft, CheckCircle2, ArrowRight } from "lucide-react";
 import { qurovaFont } from "@/lib/fonts";
 import Link from "next/link";
 
@@ -214,7 +214,8 @@ export default function LoginPage() {
           <div className="w-full space-y-3">
             <a href={getAuthLink("https://vacansee.vercel.app")} className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
               <div className="flex items-center gap-3 text-white">
-                <DoorOpen className="text-purple-500 w-5 h-5" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/vacansee-icon.svg" alt="vacansee" className="w-5 h-5 flex-shrink-0" />
                 <span className="font-medium">vacansee</span>
               </div>
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
@@ -222,7 +223,8 @@ export default function LoginPage() {
             
             <a href="https://vaila.vercel.app" className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
               <div className="flex items-center gap-3 text-white">
-                <CalendarCheck className="text-purple-500 w-5 h-5" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/vaila-icon.svg" alt="vaila" className="w-5 h-5 flex-shrink-0" />
                 <span className="font-medium">vaila</span>
               </div>
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
@@ -230,7 +232,8 @@ export default function LoginPage() {
 
             <a href={getAuthLink("https://vacansee-au.vercel.app")} className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
               <div className="flex items-center gap-3 text-white">
-                <DoorOpen className="text-purple-500 w-5 h-5" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/vacansee-au-icon.svg" alt="vacansee-au" className="w-5 h-5 flex-shrink-0" />
                 <span className="font-medium">vacansee-au</span>
               </div>
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
@@ -238,7 +241,8 @@ export default function LoginPage() {
 
             <a href="https://jroth.vercel.app" className="flex items-center justify-between w-full p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 transition-all group">
               <div className="flex items-center gap-3 text-white">
-                <DoorOpen className="text-purple-500 w-5 h-5" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/vacansee-jr-icon.svg" alt="vacansee-jr" className="w-5 h-5 flex-shrink-0" />
                 <span className="font-medium">vacansee-jr</span>
               </div>
               <ArrowRight className="w-5 h-5 text-white/30 group-hover:text-white/80 group-hover:translate-x-1 transition-all" />
