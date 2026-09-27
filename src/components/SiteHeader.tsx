@@ -5,18 +5,14 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, type Transition } from "framer-motion";
-import {
-  DoorOpen,
-  CalendarCheck,
-} from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { KeyboardKeys, AriaAnnouncer } from "@/lib/accessibility";
 import { qurovaFont } from "@/lib/fonts";
 
 const projectLinks = [
-  { name: "vacansee", href: "https://vacansee.vercel.app", icon: DoorOpen, color: "text-purple-500" },
-  { name: "vaila", href: "https://vaila.vercel.app", icon: CalendarCheck, color: "text-purple-500" },
-  { name: "vacansee-au", href: "https://vacansee-au.vercel.app", icon: DoorOpen, color: "text-purple-500" },
+  { name: "vacansee", href: "https://vacansee.vercel.app", icon: "/vacansee-icon.svg" },
+  { name: "vaila", href: "https://vaila.vercel.app", icon: "/vaila-icon.svg" },
+  { name: "vacansee-au", href: "https://vacansee-au.vercel.app", icon: "/vacansee-au-icon.svg" },
 ];
 
 interface SiteHeaderProps {
@@ -67,7 +63,8 @@ export default function SiteHeader({
               }
             }}
           >
-            <DoorOpen className="h-6 w-6 text-purple-500" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/vacansee-icon.svg" alt="vacansee logo" className="h-7 w-7 shrink-0" />
             <span className={`sm:inline text-xl mt-1 ${qurovaFont.className}`}>
               vacansee-gate
             </span>
@@ -99,7 +96,8 @@ export default function SiteHeader({
                       (isHovered ? "text-white" : "text-white/70")
                     }
                   >
-                    <project.icon className={`h-5 w-5 flex-shrink-0 ${project.color}`} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={project.icon} alt={project.name} className="h-5 w-5 flex-shrink-0" />
                     <AnimatePresence>
                       {isHovered && (
                         <motion.span
@@ -211,7 +209,8 @@ export default function SiteHeader({
                     onClick={() => setIsMenuOpen(false)}
                     className="flex items-center gap-3 w-full p-3 rounded-md text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 ease-in-out"
                   >
-                    <project.icon className={`h-5 w-5 flex-shrink-0 ${project.color}`} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={project.icon} alt={project.name} className="h-5 w-5 flex-shrink-0" />
                     <span className="flex-grow text-base">
                       {project.name}
                     </span>
